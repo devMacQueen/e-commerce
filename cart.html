@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,21 +50,23 @@
     }
   </style>
 </head>
+
 <body class="bg-white min-h-screen">
-  <div class="container mx-auto px-4 py-12 max-w-6xl">
+  <div x-data="cart()" class="container mx-auto px-4 py-12 max-w-6xl">
     <div class="flex justify-between items-center mb-12">
       <h1 class="text-3xl font-bold text-gray-900">Shopping Cart</h1>
-      <div x-data="cart()" class="bg-primary text-white text-sm font-medium px-4 py-1.5 rounded-full flex items-center">
+      <div class="bg-primary text-white text-sm font-medium px-4 py-1.5 rounded-full flex items-center">
         <i class="fas fa-shopping-cart mr-2"></i>
         <span x-text="cartItems.length"></span> <span class="hidden sm:inline ml-1">items</span>
       </div>
     </div>
 
-    <div x-data="cart()" class="space-y-6">
+    <div class="space-y-6">
       <div x-show="cartItems.length === 0" class="bg-gray-500 rounded-lg p-10 text-center">
         <i class="fas fa-shopping-cart text-gray-300 text-5xl mb-4"></i>
         <p class="text-xl text-gray-500">Your cart is empty</p>
-        <a href="#" class="inline-block mt-6 py-3 px-6 bg-primary text-white font-medium rounded-button hover:bg-primary/90 transition-colors whitespace-nowrap">
+        <a href="./index.html"
+          class="inline-block mt-6 py-3 px-6 bg-primary text-white font-medium rounded-button hover:bg-primary/90 transition-colors whitespace-nowrap">
           Continue Shopping
         </a>
       </div>
@@ -73,7 +76,8 @@
           <div class="bg-white rounded-lg border border-gray-100 shadow-sm p-4 mb-4">
             <div class="flex justify-between items-start">
               <div class="flex items-start space-x-3">
-                <img :src="item.image || 'https://via.placeholder.com/80'" alt="Product" class="w-20 h-20 object-cover rounded">
+                <img :src="item.image || 'https://via.placeholder.com/80'" alt="Product"
+                  class="w-20 h-20 object-cover rounded">
                 <div>
                   <h2 class="font-medium text-gray-900 text-lg" x-text="item.name"></h2>
                   <p class="text-sm text-gray-500" x-text="item.model"></p>
@@ -93,31 +97,30 @@
               <div class="flex justify-between items-center">
                 <span class="text-gray-600">Color:</span>
                 <div class="flex items-center">
-                  <select x-model="item.color" class="text-sm border border-gray-200 rounded p-1 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                  <select x-model="item.color"
+                    class="text-sm border border-gray-200 rounded p-1 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
                     <option value="Black">Black</option>
                     <option value="Silver">Silver</option>
                     <option value="Blue">Blue</option>
                     <option value="Red">Red</option>
                     <option value="White">White</option>
                   </select>
-                  <div class="w-4 h-4 ml-2 rounded-full border border-gray-200" :style="`background-color: ${getColorHex(item.color)}`"></div>
+                  <div class="w-4 h-4 ml-2 rounded-full border border-gray-200"
+                    :style="`background-color: ${getColorHex(item.color)}`"></div>
                 </div>
               </div>
 
               <div class="flex justify-between items-center">
                 <span class="text-gray-600">Quantity:</span>
                 <div class="flex items-center border border-gray-200 rounded">
-                  <button @click="decrementQuantity(index)" class="px-2 py-1 text-gray-500 hover:text-primary transition-colors">
+                  <button @click="decrementQuantity(index)"
+                    class="px-2 py-1 text-gray-500 hover:text-primary transition-colors">
                     <i class="fas fa-minus text-xs"></i>
                   </button>
-                  <input
-                    type="number"
-                    x-model.number="item.quantity"
-                    @change="updateTotalPrice(index)"
-                    min="1"
-                    class="w-12 text-center border-x border-gray-200 focus:outline-none"
-                  />
-                  <button @click="incrementQuantity(index)" class="px-2 py-1 text-gray-500 hover:text-primary transition-colors">
+                  <input type="number" x-model.number="item.quantity" @change="updateTotalPrice(index)" min="1"
+                    class="w-12 text-center border-x border-gray-200 focus:outline-none" />
+                  <button @click="incrementQuantity(index)"
+                    class="px-2 py-1 text-gray-500 hover:text-primary transition-colors">
                     <i class="fas fa-plus text-xs"></i>
                   </button>
                 </div>
@@ -130,7 +133,8 @@
 
               <div class="flex justify-between">
                 <span class="text-gray-600">Delivery:</span>
-                <select x-model="item.deliveryMethod" class="text-sm border border-gray-200 rounded p-1 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                <select x-model="item.deliveryMethod"
+                  class="text-sm border border-gray-200 rounded p-1 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
                   <option value="Air">Air</option>
                   <option value="Ship">Ship</option>
                   <option value="Express">Express</option>
@@ -148,10 +152,8 @@
               </div>
 
               <div class="pt-2 border-t border-gray-100 mt-2">
-                <button
-                  @click="item.showDescription = !item.showDescription"
-                  class="text-primary text-sm flex items-center"
-                >
+                <button @click="item.showDescription = !item.showDescription"
+                  class="text-primary text-sm flex items-center">
                   <span x-text="item.showDescription ? 'Hide Description' : 'Show Description'"></span>
                   <i class="fas ml-1" :class="item.showDescription ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
                 </button>
@@ -159,31 +161,22 @@
                 <div x-show="item.showDescription" class="mt-2">
                   <div x-show="!item.isEditingDescription">
                     <p class="text-sm text-gray-600" x-text="item.description"></p>
-                    <button
-                      @click="startEditingDescription(index)"
-                      class="text-xs text-primary mt-1"
-                    >
+                    <button @click="startEditingDescription(index)" class="text-xs text-primary mt-1">
                       <i class="fas fa-edit mr-1"></i> Edit
                     </button>
                   </div>
 
                   <div x-show="item.isEditingDescription">
-                    <textarea
-                      x-model="item.description"
+                    <textarea x-model="item.description"
                       class="w-full text-sm border border-gray-200 rounded p-2 mt-1 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-                      rows="3"
-                    ></textarea>
+                      rows="3"></textarea>
                     <div class="flex justify-end space-x-2 mt-2">
-                      <button
-                        @click="cancelEditingDescription(index)"
-                        class="text-xs px-3 py-1 border border-gray-200 rounded-button hover:bg-gray-50 transition-colors"
-                      >
+                      <button @click="cancelEditingDescription(index)"
+                        class="text-xs px-3 py-1 border border-gray-200 rounded-button hover:bg-gray-50 transition-colors">
                         Cancel
                       </button>
-                      <button
-                        @click="saveDescription(index)"
-                        class="text-xs px-3 py-1 bg-primary text-white rounded-button hover:bg-primary/90 transition-colors"
-                      >
+                      <button @click="saveDescription(index)"
+                        class="text-xs px-3 py-1 bg-primary text-white rounded-button hover:bg-primary/90 transition-colors">
                         Save
                       </button>
                     </div>
@@ -197,7 +190,8 @@
 
       <div class="hidden sm:block">
         <div class="responsive-table">
-          <table class="w-full bg-white rounded-lg border border-gray-100 shadow-sm overflow-hidden" x-show="cartItems.length > 0">
+          <table class="w-full bg-white rounded-lg border border-gray-100 shadow-sm overflow-hidden"
+            x-show="cartItems.length > 0">
             <thead class="bg-gray-500 text-white">
               <tr>
                 <th class="py-3 px-4 text-left font-semibold">Product</th>
@@ -213,7 +207,8 @@
                 <tr class="border-t border-gray-100 hover:bg-gray-50 transition-colors">
                   <td class="py-4 px-4">
                     <div class="flex items-center space-x-3">
-                      <img :src="item.image || 'https://via.placeholder.com/80'" alt="Product" class="w-16 h-16 object-cover rounded">
+                      <img :src="item.image || 'https://via.placeholder.com/80'" alt="Product"
+                        class="w-16 h-16 object-cover rounded">
                       <div>
                         <h3 class="font-medium text-gray-900" x-text="item.name"></h3>
                         <p class="text-sm text-gray-500" x-text="item.model"></p>
@@ -225,24 +220,24 @@
                     <div class="space-y-2">
                       <div class="flex items-center">
                         <span class="text-sm text-gray-600 mr-2">Color:</span>
-                        <select x-model="item.color" class="text-sm border border-gray-200 rounded p-1 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+                        <select x-model="item.color"
+                          class="text-sm border border-gray-200 rounded p-1 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
                           <option value="Black">Black</option>
                           <option value="Silver">Silver</option>
                           <option value="Blue">Blue</option>
                           <option value="Red">Red</option>
                           <option value="White">White</option>
                         </select>
-                        <div class="w-4 h-4 ml-2 rounded-full border border-gray-200" :style="`background-color: ${getColorHex(item.color)}`"></div>
+                        <div class="w-4 h-4 ml-2 rounded-full border border-gray-200"
+                          :style="`background-color: ${getColorHex(item.color)}`"></div>
                       </div>
                       <div class="flex items-center">
                         <span class="text-sm text-gray-600 mr-2">Delivery:</span>
-                        <select
-                          x-model="item.deliveryMethod"
+                        <select x-model="item.deliveryMethod"
                           class="text-sm border border-gray-200 rounded p-1 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
                           :class="{'bg-indigo-50 text-primary': item.deliveryMethod === 'Air',
                                   'bg-green-50 text-green-800': item.deliveryMethod === 'Ship',
-                                  'bg-amber-50 text-amber-800': item.deliveryMethod === 'Express'}"
-                        >
+                                  'bg-amber-50 text-amber-800': item.deliveryMethod === 'Express'}">
                           <option value="Air">Air</option>
                           <option value="Ship">Ship</option>
                           <option value="Express">Express</option>
@@ -252,10 +247,7 @@
                         <span class="text-sm text-gray-600 mr-2">Weight:</span>
                         <span class="text-sm text-gray-900" x-text="item.weight + ' kg'"></span>
                       </div>
-                      <button
-                        @click="toggleDescription(index)"
-                        class="text-xs text-primary flex items-center mt-1"
-                      >
+                      <button @click="toggleDescription(index)" class="text-xs text-primary flex items-center mt-1">
                         <span x-text="item.showDescription ? 'Hide Description' : 'Show Description'"></span>
                         <i class="fas ml-1" :class="item.showDescription ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
                       </button>
@@ -263,17 +255,14 @@
                   </td>
                   <td class="py-4 px-4 text-center">
                     <div class="flex items-center justify-center">
-                      <button @click="decrementQuantity(index)" class="px-2 py-1 text-gray-500 border border-gray-200 rounded-l hover:bg-gray-50 transition-colors">
+                      <button @click="decrementQuantity(index)"
+                        class="px-2 py-1 text-gray-500 border border-gray-200 rounded-l hover:bg-gray-50 transition-colors">
                         <i class="fas fa-minus text-xs"></i>
                       </button>
-                      <input
-                        type="number"
-                        x-model.number="item.quantity"
-                        @change="updateTotalPrice(index)"
-                        min="1"
-                        class="w-12 text-center border-y border-gray-200 focus:outline-none"
-                      />
-                      <button @click="incrementQuantity(index)" class="px-2 py-1 text-gray-500 border border-gray-200 rounded-r hover:bg-gray-50 transition-colors">
+                      <input type="number" x-model.number="item.quantity" @change="updateTotalPrice(index)" min="1"
+                        class="w-12 text-center border-y border-gray-200 focus:outline-none" />
+                      <button @click="incrementQuantity(index)"
+                        class="px-2 py-1 text-gray-500 border border-gray-200 rounded-r hover:bg-gray-50 transition-colors">
                         <i class="fas fa-plus text-xs"></i>
                       </button>
                     </div>
@@ -294,30 +283,21 @@
                   <td colspan="6" class="py-3 px-6">
                     <div x-show="!item.isEditingDescription">
                       <p class="text-sm text-gray-700" x-text="item.description"></p>
-                      <button
-                        @click="startEditingDescription(index)"
-                        class="text-xs text-primary mt-1"
-                      >
+                      <button @click="startEditingDescription(index)" class="text-xs text-primary mt-1">
                         <i class="fas fa-edit mr-1"></i> Edit Description
                       </button>
                     </div>
                     <div x-show="item.isEditingDescription">
-                      <textarea
-                        x-model="item.description"
+                      <textarea x-model="item.description"
                         class="w-full text-sm border border-gray-200 rounded p-2 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-                        rows="2"
-                      ></textarea>
+                        rows="2"></textarea>
                       <div class="flex justify-end space-x-2 mt-2">
-                        <button
-                          @click="cancelEditingDescription(index)"
-                          class="text-xs px-3 py-1 border border-gray-200 rounded-button hover:bg-gray-100 transition-colors"
-                        >
+                        <button @click="cancelEditingDescription(index)"
+                          class="text-xs px-3 py-1 border border-gray-200 rounded-button hover:bg-gray-100 transition-colors">
                           Cancel
                         </button>
-                        <button
-                          @click="saveDescription(index)"
-                          class="text-xs px-3 py-1 bg-primary text-white rounded-button hover:bg-primary/90 transition-colors"
-                        >
+                        <button @click="saveDescription(index)"
+                          class="text-xs px-3 py-1 bg-primary text-white rounded-button hover:bg-primary/90 transition-colors">
                           Save
                         </button>
                       </div>
@@ -335,8 +315,10 @@
           <div class="bg-gray-500 rounded-lg p-4 sm:p-6 mb-6">
             <h2 class="text-lg font-semibold text-white mb-4">Shipping Options</h2>
             <div class="space-y-3">
-              <label class="flex items-center p-3 bg-white border border-gray-200 rounded cursor-pointer hover:border-primary transition-colors">
-                <input type="radio" name="shippingMethod" value="standard" x-model="shippingMethod" class="mr-3 accent-primary">
+              <label
+                class="flex items-center p-3 bg-white border border-gray-200 rounded cursor-pointer hover:border-primary transition-colors">
+                <input type="radio" name="shippingMethod" value="standard" x-model="shippingMethod"
+                  class="mr-3 accent-primary">
                 <div>
                   <div class="font-medium text-gray-500">Standard Shipping</div>
                   <div class="text-sm text-gray-600">Delivery in 5-7 business days</div>
@@ -344,8 +326,10 @@
                 <div class="ml-auto font-medium text-gray-900">$5.00</div>
               </label>
 
-              <label class="flex items-center p-3 bg-white border border-gray-200 rounded cursor-pointer hover:border-primary transition-colors">
-                <input type="radio" name="shippingMethod" value="express" x-model="shippingMethod" class="mr-3 accent-primary">
+              <label
+                class="flex items-center p-3 bg-white border border-gray-200 rounded cursor-pointer hover:border-primary transition-colors">
+                <input type="radio" name="shippingMethod" value="express" x-model="shippingMethod"
+                  class="mr-3 accent-primary">
                 <div>
                   <div class="font-medium text-gray-900">Express Shipping</div>
                   <div class="text-sm text-gray-600">Delivery in 1-3 business days</div>
@@ -353,8 +337,10 @@
                 <div class="ml-auto font-medium text-gray-900">$15.00</div>
               </label>
 
-              <label class="flex items-center p-3 bg-white border border-gray-200 rounded cursor-pointer hover:border-primary transition-colors">
-                <input type="radio" name="shippingMethod" value="overnight" x-model="shippingMethod" class="mr-3 accent-primary">
+              <label
+                class="flex items-center p-3 bg-white border border-gray-200 rounded cursor-pointer hover:border-primary transition-colors">
+                <input type="radio" name="shippingMethod" value="overnight" x-model="shippingMethod"
+                  class="mr-3 accent-primary">
                 <div>
                   <div class="font-medium text-gray-900">Overnight Shipping</div>
                   <div class="text-sm text-gray-600">Next day delivery</div>
@@ -367,16 +353,10 @@
           <div class="bg-gray-500 rounded-lg p-4 sm:p-6">
             <h2 class="text-lg font-semibold text-white mb-4">Promo Code</h2>
             <div class="flex">
-              <input
-                type="text"
-                x-model="promoCode"
-                placeholder="Enter promo code"
-                class="flex-grow border border-gray-200 rounded-l-button p-2 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
-              >
-              <button
-                @click="applyPromoCode"
-                class="bg-primary text-white px-5 py-2 font-medium rounded-r-button hover:bg-primary/90 transition-colors"
-              >
+              <input type="text" x-model="promoCode" placeholder="Enter promo code"
+                class="flex-grow border border-gray-200 rounded-l-button p-2 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary">
+              <button @click="applyPromoCode"
+                class="bg-primary text-white px-5 py-2 font-medium rounded-r-button hover:bg-primary/90 transition-colors">
                 Apply
               </button>
             </div>
@@ -415,9 +395,7 @@
             </div>
             <button
               class="w-full bg-primary text-white py-3 rounded-button font-medium hover:bg-primary/90 transition-colors flex items-center justify-center"
-              :disabled="cartItems.length === 0"
-              :class="{'opacity-50 cursor-not-allowed': cartItems.length === 0}"
-            >
+              :disabled="cartItems.length === 0" :class="{'opacity-50 cursor-not-allowed': cartItems.length === 0}">
               <i class="fas fa-lock mr-2"></i> Proceed to Checkout
             </button>
             <div class="flex items-center justify-center mt-4 text-sm text-gray-600">
@@ -445,48 +423,54 @@
     </div>
   </div>
 
+
+  <script src="./cart.js"></script>
   <script>
     function cart() {
       return {
-        cartItems: [
-          {
-            name: "Laptop",
-            model: "XPS 13",
-            hsCode: "847130",
-            quantity: 1,
-            weight: 2.5,
-            perPieceRate: 999.99,
-            totalPrice: 999.99,
-            color: "Silver",
-            deliveryMethod: "Air",
-            description: "A powerful and lightweight laptop with excellent performance.",
-            isEditingDescription: false,
-            originalDescription: "",
-            showDescription: false,
-            image: "https://via.placeholder.com/150"
-          },
-          {
-            name: "Smartphone",
-            model: "iPhone 14",
-            hsCode: "851712",
-            quantity: 2,
-            weight: 0.5,
-            perPieceRate: 799.99,
-            totalPrice: 1599.98,
-            color: "Black",
-            deliveryMethod: "Ship",
-            description: "The latest iPhone with advanced camera and processing power.",
-            isEditingDescription: false,
-            originalDescription: "",
-            showDescription: false,
-            image: "https://via.placeholder.com/150"
-          }
-        ],
+        cartItems: [],
         shippingMethod: "standard",
         promoCode: "",
         promoMessage: "",
         promoValid: false,
         discount: 0,
+
+        init() {
+          this.cartItems = getCart().map((i) => ({
+            id: i.id,
+            name: i.title,
+            model: i.brand || "",
+            hsCode: "",
+            quantity: i.quantity,
+            weight: i.weight || 0,
+            perPieceRate: i.price,
+            totalPrice: i.price * i.quantity,
+            color: "Black",
+            deliveryMethod: "Air",
+            description: i.description || "",
+            isEditingDescription: false,
+            originalDescription: "",
+            showDescription: false,
+            image: i.thumbnail,
+          }));
+
+          this.$watch("cartItems", () => this.persist());
+        },
+
+        persist() {
+          saveCart(
+            this.cartItems.map((i) => ({
+              id: i.id,
+              title: i.name,
+              price: i.perPieceRate,
+              thumbnail: i.image,
+              description: i.description,
+              brand: i.model,
+              weight: i.weight,
+              quantity: i.quantity,
+            }))
+          );
+        },
 
         removeItem(index) {
           if (confirm('Are you sure you want to remove this item?')) {
@@ -514,6 +498,7 @@
 
         updateTotalPrice(index) {
           const item = this.cartItems[index];
+          if (!item.quantity || item.quantity < 1) item.quantity = 1;
           item.totalPrice = item.perPieceRate * item.quantity;
         },
 
@@ -604,4 +589,5 @@
     }
   </script>
 </body>
+
 </html>

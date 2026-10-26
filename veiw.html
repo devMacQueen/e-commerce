@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="output.css">
+    <title>All Products</title>
+</head>
+
+<body>
+    <nav class="flex justify-between items-center px-5 py-5 bg-white shadow-md sticky top-0 z-50">
+        <div class="text-2xl font-bold text-gray-800">shopify</div>
+
+        <ul class="space-x-8 hidden md:flex">
+            <li class="relative">
+                <a href="#"
+                    class="nav-link text-gray-800 font-medium hover:text-primary transition-colors duration-300">Home</a>
+            </li>
+            <li class="relative">
+                <a href="#"
+                    class="nav-link text-gray-800 font-medium hover:text-primary transition-colors duration-300">Men</a>
+            </li>
+            <li class="relative">
+                <a href="#"
+                    class="nav-link text-gray-800 font-medium hover:text-primary transition-colors duration-300">Women</a>
+            </li>
+            <li class="relative">
+                <a href="#"
+                    class="nav-link text-gray-800 font-medium hover:text-primary transition-colors duration-300">Page</a>
+            </li>
+            <li class="relative">
+                <a href="#"
+                    class="nav-link text-gray-800 font-medium hover:text-primary transition-colors duration-300">Shop</a>
+            </li>
+            <li class="relative">
+                <a href="#"
+                    class="nav-link text-gray-800 font-medium hover:text-primary transition-colors duration-300">Sale</a>
+            </li>
+        </ul>
+
+
+
+        <div class="flex items-center space-x-3 md:space-x-5">
+            <!-- Search -->
+            <form id="searchForm" class="flex items-center">
+                <input id="searchInput" type="search" placeholder="Search products..."
+                    class="hidden w-40 md:w-64 border-b border-gray-400 bg-transparent px-2 py-1 text-gray-800 focus:outline-none focus:border-primary" />
+            </form>
+
+            <button id="searchToggle" type="button" aria-label="Search"
+                class="text-gray-800 hover:text-primary transition-all duration-300 hover:-translate-y-1">
+                <i class="fas fa-search text-xl"></i>
+            </button>
+
+            <a href="./cart.html"
+                class="relative text-gray-800 hover:text-primary transition-all duration-300 hover:-translate-y-1">
+                <i class="fas fa-shopping-cart text-xl"></i>
+                <span id="cartCount"
+                    class=" absolute -top-2 -right-3 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+            </a>
+            <a href="./login.html"
+                class="text-gray-800 hover:text-primary transition-all duration-300 hover:-translate-y-1">
+                <i class="fas fa-user text-xl"></i>
+            </a>
+        </div>
+    </nav>
+
+    <div class="section-header flex justify-between items-center my-10 animate-fadeInUp" style="animation-delay: 0.5s;">
+        <select id="category" class="w-[300px] border rounded-md p-2">
+            <option value="">category</option>
+            <option value="beauty">Beauty</option>
+            <option value="fragrances">fragrances</option>
+            <option value="furniture">furniture</option>
+            <option value="groceries">groceries</option>
+            <option value="skin-care">skin care</option>
+            <option value="laptops">laptops</option>
+            <option value="tops">Tops</option>
+            <option value="tablets">Tablets</option>
+            <option value="smartphones">SmartPhones</option>
+            <option value="vehicle">vehicle</option>
+            <option value="home-decoration">Home Decoration</option>
+            <option value="mens-shirts">Men's Shirts</option>
+            <option value="mens-shoes">Men's Shoes</option>
+            <option value="mens-watches">Men's Watches</option>
+            <option value="mobile-accessories">Mobile Accessories</option>
+            <option value="motorcycle">Motorcycles</option>
+            <option value="sports-accessories">Sports Accessories</option>
+            <option value="sunglasses">Sunglasses</option>
+        </select>
+        <select name="sort" id="sort" class="w-[300px] border rounded-md p-2">
+            <option value="">sort</option>
+            <option value="a-z">A-Z</option>
+            <option value="z-a">Z-A</option>
+            <option value="highest">Highest</option>
+            <option value="lowest">Lowest</option>
+        </select>
+    </div>
+    <div id="products-div" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 my-10">
+
+    </div>
+    <!-- <div class="flex justify-center items-center gap-4 mt-8">
+        <button id="prevBtn" class="px-4 py-2 border rounded disabled:opacity-40">Prev</button>
+        <span id="pageInfo"></span>
+        <button id="nextBtn" class="px-4 py-2 border rounded disabled:opacity-40">Next</button>
+    </div> -->
+
+    <template id="template">
+        <div class="card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 animate-fadeInUp"
+            style="animation-delay: 0.6s;">
+            <div class="relative overflow-hidden group">
+                <img src="" alt="Men's Casual Shirt" class="w-full h-64 object-cover" loading="lazy">
+                <div
+                    class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300">
+                </div>
+                <button
+                    class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-primary text-white px-6 py-2 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:bg-red-500">
+                    Add to Cart
+                </button>
+            </div>
+            <div class="p-4">
+                <h3 class="title font-semibold text-lg"></h3>
+                <p class="dec text-primary font-bold text-xl mt-2"></p>
+                <p class="price text-primary font-bold text-xl mt-2"></p>
+            </div>
+        </div>
+    </template>
+
+    <script src="./cart.js"></script>
+
+    <script>
+        const searchToggle = document.getElementById("searchToggle");
+        const searchInput = document.getElementById("searchInput");
+        const searchForm = document.getElementById("searchForm");
+        const template = document.getElementById("template")
+        const product_div = document.getElementById("products-div")
+        const category = document.getElementById("category")
+        const sort = document.getElementById("sort")
+
+        // Show/hide the input
+        searchToggle.addEventListener("click", () => {
+            searchInput.classList.toggle("hidden");
+            if (!searchInput.classList.contains("hidden")) {
+                searchInput.focus();
+            }
+        });
+
+        async function search(query) {
+            try {
+                await fetch(`https://dummyjson.com/products/search?q=${query}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        // console.log(data)
+                        product_div.innerHTML = ""
+
+                        data.products.forEach(p => {
+                            let clone = template.content.cloneNode(true)
+                            let card = clone.querySelector(".card")
+
+                            card.querySelector("img").src = p.thumbnail
+                            card.querySelector(".title").innerText = p.title
+                            card.querySelector(".dec").innerText = p.description
+                            card.querySelector(".price").innerText = `$${p.price}`
+
+                            product_div.appendChild(card)
+                        });
+                    });
+            } catch (error) {
+                console.error(error.message)
+            }
+        }
+
+        searchInput.addEventListener("input", (e) => {
+            e.preventDefault()
+            let input = searchInput.value.toLowerCase().trim()
+
+            if (!input) return
+
+            search(input)
+        })
+
+        async function getCat(category) {
+            try {
+                await fetch(`https://dummyjson.com/products/category/${category}`)
+                    .then((res) => res.json())
+                    .then((data) => {
+                        console.log(data);
+                        product_div.innerHTML = ""
+                        data.products.forEach(p => {
+                            let clone = template.content.cloneNode(true)
+                            let card = clone.querySelector(".card")
+
+                            card.querySelector("img").src = p.thumbnail
+                            card.querySelector(".title").innerText = p.title
+                            card.querySelector(".dec").innerText = p.description
+                            card.querySelector(".price").innerText = `$${p.price}`
+
+                            product_div.appendChild(card)
+                        });
+                    });
+            } catch (error) {
+                console.error(error.message);
+            }
+        }
+
+        category.addEventListener("change", (e) => {
+            getCat(category.value);
+        });
+
+        async function sortFunc(method) {
+            try {
+                await fetch(`https://dummyjson.com/products?${method}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        product_div.innerHTML = ""
+                        data.products.forEach(p => {
+                            let clone = template.content.cloneNode(true)
+                            let card = clone.querySelector(".card")
+
+                            card.querySelector("img").src = p.thumbnail
+                            card.querySelector(".title").innerText = p.title
+                            card.querySelector(".dec").innerText = p.description
+                            card.querySelector(".price").innerText = `$${p.price}`
+
+                            product_div.appendChild(card)
+                        });
+                    });
+            } catch (error) {
+                console.error(error.message);
+            }
+        }
+
+
+        sort.addEventListener("change", (e) => {
+            if (sort.value === "a-z") {
+                sortFunc("sortBy=title&order=asc&limit=100")
+            } else if (sort.value === "z-a") {
+                sortFunc('sortBy=title&order=desc&limit=100')
+            } else if (sort.value === "highest") {
+                sortFunc('sortBy=price&order=desc&limit=100')
+            } else if (sort.value === "lowest") {
+                sortFunc("sortBy=price&order=asc&limit=100")
+            }
+        })
+
+
+        async function getAll() {
+            await fetch('https://dummyjson.com/products?limit=194')
+                .then(res => res.json())
+                .then(data => {
+                    product_div.innerHTML = ""
+                    data.products.forEach(p => {
+                        let clone = template.content.cloneNode(true)
+                        let card = clone.querySelector(".card")
+
+                        card.querySelector("img").src = p.thumbnail
+                        card.querySelector(".title").innerText = p.title
+                        card.querySelector(".dec").innerText = p.description
+                        card.querySelector(".price").innerText = `$${p.price}`
+
+                        product_div.appendChild(card)
+                    });
+                });
+        }
+
+        getAll()
+
+
+        // let limit = 8;
+        // let page = 1;
+        // let totalPages = 1;
+
+        // async function loadProducts() {
+        //     try {
+        //         let skip = (page - 1) * limit;
+        //         const res = await fetch(`https://dummyjson.com/products?limit=${limit}&skip=${skip}`);
+        //         if (!res.ok) throw new Error("Failed to load products");
+        //         const data = await res.json();
+
+        //         console.log(data)
+
+        //         totalPages = Math.ceil(data.total / limit);
+
+        //         product_div.innerHTML = ""
+        //         // console.log(data.total)
+        //         data.products.forEach(p => {
+        //             let clone = template.content.cloneNode(true)
+        //             let card = clone.querySelector(".card")
+
+        //             card.querySelector("img").src = p.thumbnail
+        //             card.querySelector(".title").innerText = p.title
+        //             card.querySelector(".dec").innerText = p.description
+        //             card.querySelector(".price").innerText = `$${p.price}`
+
+        //             product_div.appendChild(card)
+        //         });
+
+        //         updateButtons();
+        //     } catch (error) {
+        //         console.error(error.message);
+        //     }
+        // }
+
+
+        // const prevBtn = document.getElementById("prevBtn");
+        // const nextBtn = document.getElementById("nextBtn");
+        // const pageInfo = document.getElementById("pageInfo");
+
+        // function updateButtons() {
+        //     pageInfo.textContent = `Page ${page} of ${totalPages}`;
+        //     prevBtn.disabled = page === 1;
+        //     nextBtn.disabled = page === totalPages;
+        // }
+
+        // prevBtn.addEventListener("click", () => {
+        //     if (page > 1) {
+        //         page--;
+        //         loadProducts();
+        //     }
+        // });
+
+        // nextBtn.addEventListener("click", () => {
+        //     if (page < totalPages) {
+        //         page++;
+        //         loadProducts();
+        //     }
+        // });
+
+        // loadProducts();  
+    </script>
+</body>
+
+</html>
