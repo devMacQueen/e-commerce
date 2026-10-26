@@ -24,7 +24,7 @@ async function getFour() {
           description[i].innerText = p.description
           price[i].innerText = `$${p.price}`;
           btn[i].dataset.product = JSON.stringify(p);
-          console.log(btn[i])
+          // console.log(btn[i])
         });
       });
   } catch (error) {}
